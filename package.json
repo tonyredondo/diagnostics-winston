@@ -1,0 +1,28 @@
+{
+  "name": "diagnostics-winston",
+  "version": "1.0.0",
+  "description": "Diagnostics Winston Transport",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tonyredondo/diagnostics-winston.git"
+  },
+  "keywords": [
+    "Diagnostics",
+    "Winston",
+    "Transport"
+  ],
+  "author": "Daniel Redondo",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/tonyredondo/diagnostics-winston/issues"
+  },
+  "homepage": "https://github.com/tonyredondo/diagnostics-winston#readme",
+  "dependencies": {
+    "winston": "^3.0.0",
+    "winston-transport": "^4.2.0"
+  }
+}
