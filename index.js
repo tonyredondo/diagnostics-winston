@@ -72,8 +72,14 @@ module.exports = class DiagnosticsTransport extends Transport {
     async log(info, callback) {
         var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
         const timestamp = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+        if (arguments.length == 4) {
+          info = arguments[2];
+          info.level = arguments[0];
+          info.message = arguments[1];
+          callback = arguments[3];
+        }
         setImmediate(() => {
-            this.emit('logged', info);
+          this.emit.apply(this, arguments);
         });
 
         var data = Object.assign({}, info);
