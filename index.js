@@ -72,17 +72,19 @@ module.exports = class DiagnosticsTransport extends Transport {
     async log(info, callback) {
         var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
         const timestamp = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
+        var data = null;
         if (arguments.length == 4) {
-          info = arguments[2];
-          info.level = arguments[0];
-          info.message = arguments[1];
-          callback = arguments[3];
+            data = Object.assign({}, arguments[2]);
+            data.level = arguments[0];
+            data.message = arguments[1];
+            callback = arguments[3];
+        } else {
+            data = Object.assign({}, info);
         }
         setImmediate(() => {
           this.emit.apply(this, arguments);
         });
 
-        var data = Object.assign({}, info);
         var item = {};
         item.timestamp = timestamp;
         item.environmentName = this.getValueOrDefault(data, 'environment', this.environment);
