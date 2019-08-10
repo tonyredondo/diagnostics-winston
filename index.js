@@ -165,7 +165,8 @@ module.exports = class DiagnosticsTransport extends Transport {
             item.traceName = item.message;
 
         this.appendToBuffer(item);
-        callback();
+        if (typeof callback === "function")
+            callback();
     }
 
     getValueOrDefault(item, key, defaultValue) {
