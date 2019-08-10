@@ -167,7 +167,7 @@ module.exports = class DiagnosticsTransport extends Transport {
         }
 
         if (!item.groupName && this.groupFieldFunction)
-            item.groupName = this.groupFieldFunction(); 
+            item.groupName = this.groupFieldFunction(item); 
         
         if (item.traceData && !item.traceName)
             item.traceName = item.message;
