@@ -15,6 +15,7 @@ module.exports = class DiagnosticsTransport extends Transport {
             throw new Error('Missing required option: `environment`');
         }
 
+        this.name = options.name || 'diagnostics';
         this.endpoint = options.endpoint;
         this.environment = options.environment;
 
