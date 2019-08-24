@@ -140,7 +140,7 @@ module.exports = class DiagnosticsTransport extends Transport {
                 message: err.message || null,
                 source: err.code || null,
                 stackTrace: err.stack || null
-            };         
+            };
         }
 
         var stack = this.getValueOrDefault(data, 'stack', null);
@@ -149,7 +149,7 @@ module.exports = class DiagnosticsTransport extends Transport {
             try {
                 var fLineIdx = stack.indexOf('\n');
                 message = stack.substring(0, fLineIdx);
-                stack = stack.substring(fLineIdx + 2);    
+                stack = stack.substring(fLineIdx + 2);
             } catch {
             }
             if (!item.exception) {
@@ -162,13 +162,16 @@ module.exports = class DiagnosticsTransport extends Transport {
             }
         }
 
-        if (!item.traceData && Object.keys(data).length > 0) {
+        if (item.traceData) {
+            item.traceData = JSON.stringify(item.traceData);
+        }
+        else if (Object.keys(data).length > 0) {
             item.traceData = JSON.stringify(data);
         }
 
         if (!item.groupName && this.groupFieldFunction)
-            item.groupName = this.groupFieldFunction(item); 
-        
+            item.groupName = this.groupFieldFunction(item);
+
         if (item.traceData && !item.traceName)
             item.traceName = item.message;
 
