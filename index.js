@@ -61,7 +61,7 @@ module.exports = class DiagnosticsTransport extends Transport {
             zlib.gzip(jsonPayload, function (err, buffer) {
                 var req = http.request(self.http_options, function(res) {});
                 req.on('error', function(e) {
-                    console.log('Error: ' + e.message);
+                    console.log('Error sending data to diagnostics: ' + e.message);
                 });
                 req.write(buffer);
                 req.end();
@@ -150,7 +150,8 @@ module.exports = class DiagnosticsTransport extends Transport {
                 var fLineIdx = stack.indexOf('\n');
                 message = stack.substring(0, fLineIdx);
                 stack = stack.substring(fLineIdx + 2);
-            } catch {
+            } catch (e) {
+                console.log(e);
             }
             if (!item.exception) {
                 item.exception = {

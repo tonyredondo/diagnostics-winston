@@ -1,6 +1,6 @@
 {
   "name": "diagnostics-winston",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Diagnostics Winston Transport",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/tonyredondo/diagnostics-winston#readme",
   "dependencies": {
-    "winston": "^3.0.0",
-    "winston-transport": "^4.2.0"
+    "winston": "^2.4.4",
+    "winston-transport": "^4.3.0"
   }
 }
