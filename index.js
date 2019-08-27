@@ -54,7 +54,7 @@ module.exports = class DiagnosticsTransport extends Transport {
         this.flushTimer = setInterval(this.flushBuffers, this.flushInterval, this);
     }
 
-    async flushBuffers(self) {
+    flushBuffers(self) {
         if (self.itemBuffer.length > 0) {
             const payload = self.itemBuffer.splice(0, self.itemBuffer.length);
             var jsonPayload = JSON.stringify(payload, null, 2);
@@ -69,7 +69,7 @@ module.exports = class DiagnosticsTransport extends Transport {
         }
     }
 
-    async log(info, callback) {
+    log(info, callback) {
         var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
         const timestamp = (new Date(Date.now() - tzoffset)).toISOString().slice(0, -1);
         var data = null;
@@ -177,6 +177,9 @@ module.exports = class DiagnosticsTransport extends Transport {
             item.traceName = item.message;
 
         this.appendToBuffer(item);
+        if (item.level === 'Error') {
+            this.flushBuffers(this);
+        }
         if (typeof callback === "function")
             callback();
     }
